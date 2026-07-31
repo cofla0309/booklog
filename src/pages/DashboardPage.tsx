@@ -100,24 +100,25 @@ export function DashboardPage() {
                 </div>
               </div>
               <div style={{ flex: 1, minWidth: 180 }}>
-                <div className="sub">
-                  {yearly.onTrack ? (
-                    <span className="good strong">계획보다 {yearly.ahead?.toFixed(1)}권 앞서 있습니다.</span>
-                  ) : (
-                    <span className="bad strong">
-                      계획보다 {Math.abs(yearly.ahead ?? 0).toFixed(1)}권 뒤처져 있습니다.
-                    </span>
-                  )}
+                <div style={{ display: "flex", gap: "1.6rem", flexWrap: "wrap" }}>
+                  <div>
+                    <div className="label">남은 권수</div>
+                    <div className="strong" style={{ fontSize: "1.5rem" }}>
+                      {yearly.remaining}권
+                    </div>
+                  </div>
+                  <div>
+                    <div className="label">남은 일수</div>
+                    <div className="strong" style={{ fontSize: "1.5rem" }}>
+                      {yearly.daysLeft}일
+                    </div>
+                  </div>
                 </div>
-                <ul className="tiny dim" style={{ margin: ".5rem 0 0", paddingLeft: "1.1rem", lineHeight: 1.8 }}>
+                <ul className="tiny dim" style={{ margin: ".7rem 0 0", paddingLeft: "1.1rem", lineHeight: 1.8 }}>
                   <li>
                     이 페이스면 연말에 <span className="strong">{yearly.projected}권</span> 예상
                   </li>
-                  <li>
-                    남은 {yearly.remaining}권 · {yearly.daysLeft}일
-                    {yearly.daysPerBook != null && <> ({yearly.daysPerBook}일에 1권)</>}
-                  </li>
-                  <li>지금쯤 목표선은 {yearly.expectedByNow}권</li>
+                  {yearly.daysPerBook != null && <li>{yearly.daysPerBook}일에 1권씩 읽으면 목표 달성</li>}
                 </ul>
               </div>
             </div>
