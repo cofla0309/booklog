@@ -47,32 +47,34 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
               key={key}
               style={{
                 minWidth: 0,
+                aspectRatio: "3 / 4",
                 border: "1px solid var(--grid)",
                 borderRadius: 4,
                 padding: 2,
                 display: "flex",
                 flexDirection: "column",
                 gap: 2,
+                overflow: "hidden",
               }}
             >
-              <span className="tiny dim" style={{ fontSize: "0.65rem", lineHeight: 1 }}>
+              <span className="tiny dim" style={{ fontSize: "0.65rem", lineHeight: 1, flex: "none" }}>
                 {day.getDate()}
               </span>
               {finished.length > 0 && (
-                <div style={{ display: "flex", gap: 2, minWidth: 0 }}>
+                <div style={{ display: "flex", gap: 2, minWidth: 0, flex: "1 1 0", minHeight: 0 }}>
                   {finished.map((book) =>
                     book.cover_url ? (
                       <Link
                         key={book.id}
                         to={`/books/${book.id}`}
                         title={book.title}
-                        style={{ flex: "1 1 0", minWidth: 0 }}
+                        style={{ flex: "1 1 0", minWidth: 0, minHeight: 0 }}
                       >
                         <img
                           src={book.cover_url}
                           alt={book.title}
                           className="cover"
-                          style={{ width: "100%" }}
+                          style={{ width: "100%", height: "100%", aspectRatio: "auto" }}
                         />
                       </Link>
                     ) : (
@@ -81,7 +83,7 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
                         to={`/books/${book.id}`}
                         title={book.title}
                         className="cover cover-ph"
-                        style={{ flex: "1 1 0", minWidth: 0, width: "100%", fontSize: "0.6rem" }}
+                        style={{ flex: "1 1 0", minWidth: 0, width: "100%", height: "100%", aspectRatio: "auto", fontSize: "0.6rem" }}
                       >
                         📕
                       </Link>
