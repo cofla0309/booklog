@@ -1,14 +1,19 @@
 import { useState } from "react";
+import { Navigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 
 export function LoginPage() {
-  const { signIn, signUp } = useAuth();
+  const { user, signIn, signUp } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmSent, setConfirmSent] = useState(false);
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
