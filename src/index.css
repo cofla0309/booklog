@@ -608,7 +608,8 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.35); }
 /* ── 모바일 ──────────────────────────────────────────────── */
 
 @media (max-width: 780px) {
-  .grid-2, .grid-3, .grid-hero { grid-template-columns: minmax(0, 1fr); }
+  .grid-2, .grid-hero { grid-template-columns: minmax(0, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   main { padding: 1rem 0.75rem 3.5rem; }
   .card { padding: 0.9rem; border-radius: 10px; }
   .hero-figure { font-size: 2.4rem; }
