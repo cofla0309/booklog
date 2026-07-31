@@ -1,4 +1,5 @@
-import { eachDayOfInterval, endOfMonth, format, getDay, startOfMonth } from "date-fns";
+import { useState } from "react";
+import { addMonths, eachDayOfInterval, endOfMonth, format, getDay, startOfMonth, subMonths } from "date-fns";
 import { Link } from "react-router";
 import type { Book } from "../../types/book";
 
@@ -9,7 +10,8 @@ interface CompletionCalendarProps {
 }
 
 export function CompletionCalendar({ books }: CompletionCalendarProps) {
-  const now = new Date();
+  const [viewedMonth, setViewedMonth] = useState(() => startOfMonth(new Date()));
+  const now = viewedMonth;
   const start = startOfMonth(now);
   const end = endOfMonth(now);
   const days = eachDayOfInterval({ start, end });
@@ -29,9 +31,26 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
   return (
     <div className="card">
       <div className="card-head">
+        <button
+          type="button"
+          className="btn-sm"
+          aria-label="이전 달"
+          onClick={() => setViewedMonth((m) => subMonths(m, 1))}
+        >
+          ←
+        </button>
         <h2>
           {now.getFullYear()}년 {now.getMonth() + 1}월 ({monthCount}권)
         </h2>
+        <span className="spacer" />
+        <button
+          type="button"
+          className="btn-sm"
+          aria-label="다음 달"
+          onClick={() => setViewedMonth((m) => addMonths(m, 1))}
+        >
+          →
+        </button>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: "3px" }}>
         {WEEKDAY_LABELS.map((label) => (
