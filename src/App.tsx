@@ -1,9 +1,15 @@
+import { Outlet } from "react-router";
+import { NavBar } from "./components/layout/NavBar";
+
 function App() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-4xl font-semibold">BOOKLOG</h1>
-    </div>
-  )
+    <>
+      <NavBar />
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
-export default App
+export default App;
