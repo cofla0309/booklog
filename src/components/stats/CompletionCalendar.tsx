@@ -30,7 +30,7 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
     <div className="card">
       <div className="card-head">
         <h2>
-          {now.getFullYear()}년 {now.getMonth() + 1}월 완독 캘린더 ({monthCount}권)
+          {now.getFullYear()}년 {now.getMonth() + 1}월 ({monthCount}권)
         </h2>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: "3px" }}>
