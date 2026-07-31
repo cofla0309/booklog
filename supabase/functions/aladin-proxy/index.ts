@@ -81,6 +81,7 @@ Deno.serve(async (req) => {
       params.set("QueryType", body.queryType ?? "Title");
       params.set("Start", String(body.start ?? 1));
       params.set("MaxResults", "20");
+      params.set("OptResult", "subInfo");
       url = `${ALADIN_BASE}/ItemSearch.aspx?${params.toString()}`;
     } else if (body.action === "lookup") {
       if (!body.isbn13 || typeof body.isbn13 !== "string") {
