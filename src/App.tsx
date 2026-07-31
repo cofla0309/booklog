@@ -1,7 +1,7 @@
 function App() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-4xl font-semibold">독서기록 앱</h1>
+      <h1 className="text-4xl font-semibold">BOOKLOG</h1>
     </div>
   )
 }
