@@ -73,7 +73,7 @@ export function BookTile({ book, onLogged }: BookTileProps) {
           )
         )}
 
-        <ProgressForm book={book} onLogged={onLogged} />
+        <ProgressForm book={book} showMinutes stacked onLogged={onLogged} />
       </div>
     </div>
   );

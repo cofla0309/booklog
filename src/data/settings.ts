@@ -19,9 +19,15 @@ export async function getAppSettings(): Promise<AppSettings> {
 }
 
 export async function updateAppSettings(patch: Partial<AppSettings>): Promise<AppSettings> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("not signed in");
+
   const { data, error } = await supabase
     .from("app_settings")
     .update(patch)
+    .eq("user_id", user.id)
     .select("pages_per_day, minutes_per_day")
     .single();
   if (error) throw error;
