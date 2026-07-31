@@ -8,7 +8,7 @@ import { listAllSessions } from "../data/sessions";
 import { useYearlyGoal } from "../hooks/useYearlyGoal";
 import { useStreak } from "../hooks/useStreak";
 import { buildDailySeries } from "../lib/dailySeries";
-import { fmt } from "../lib/svgChartHelpers";
+import { fmt, minutesAxis } from "../lib/svgChartHelpers";
 import {
   availableYears,
   computeByCategory,
@@ -52,6 +52,9 @@ export function StatsPage() {
   const currentYear = new Date().getFullYear();
   const monthsElapsed = year === currentYear ? new Date().getMonth() + 1 : year < currentYear ? 12 : 0;
   const avgBooksPerMonth = monthsElapsed > 0 ? Math.round((thisYear.booksDone / monthsElapsed) * 10) / 10 : null;
+
+  const monthlyTime = minutesAxis(monthly.map((d) => d.minutes));
+  const daily50Time = minutesAxis(daily50.map((d) => d.minutes));
 
   return (
     <div>
@@ -144,14 +147,17 @@ export function StatsPage() {
           </div>
           <ColumnChart
             data={monthly}
-            value={(d) => d.minutes}
+            value={(d) => monthlyTime.toValue(d.minutes)}
             label={(d) => d.label}
-            unit="분"
+            unit={monthlyTime.unit}
             tooltip={(d) => (
               <>
                 {d.label}
                 <br />
-                <span className="t-val">{d.minutes}분</span>
+                <span className="t-val">
+                  {fmt(monthlyTime.toValue(d.minutes))}
+                  {monthlyTime.unit}
+                </span>
                 {d.pages > 0 && ` · ${fmt(d.pages)}p`}
               </>
             )}
@@ -196,8 +202,10 @@ export function StatsPage() {
         <DualColumnChart
           data={daily50}
           valueA={(d) => d.pages}
-          valueB={(d) => d.minutes}
+          valueB={(d) => daily50Time.toValue(d.minutes)}
           label={(d) => d.label}
+          labelB={daily50Time.useHours ? "시간" : "시간(분)"}
+          unitB={daily50Time.unit}
           labelEvery={10}
           height={170}
         />

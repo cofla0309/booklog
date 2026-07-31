@@ -13,6 +13,16 @@ export function niceTicks(max: number, count = 4): number[] {
 
 export const fmt = (n: number) => Number(n).toLocaleString("ko-KR");
 
+/** 분 단위 값들 중 최댓값이 1시간을 넘으면 시간 단위로, 아니면 분 단위로 표시. */
+export function minutesAxis(minutesList: number[]) {
+  const useHours = Math.max(0, ...minutesList) >= 60;
+  return {
+    useHours,
+    unit: useHours ? "시간" : "분",
+    toValue: (minutes: number) => (useHours ? Math.round((minutes / 60) * 10) / 10 : minutes),
+  };
+}
+
 /** 위쪽 두 모서리만 둥근 막대. */
 export function barPathUp(x: number, y: number, w: number, h: number, r = 4): string {
   if (h <= 0.5) return `M${x},${y + h} h${w} v${-Math.max(h, 0.5)} h${-w} Z`;
