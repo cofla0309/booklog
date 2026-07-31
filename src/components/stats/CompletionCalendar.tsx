@@ -16,18 +16,21 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
   const leadingBlanks = getDay(start);
 
   const byDate = new Map<string, Book[]>();
+  let monthCount = 0;
   for (const book of books) {
     if (book.status !== "done" || !book.end_date) continue;
+    if (book.end_date < format(start, "yyyy-MM-dd") || book.end_date > format(end, "yyyy-MM-dd")) continue;
     const list = byDate.get(book.end_date) ?? [];
     list.push(book);
     byDate.set(book.end_date, list);
+    monthCount += 1;
   }
 
   return (
     <div className="card">
       <div className="card-head">
         <h2>
-          {now.getFullYear()}년 {now.getMonth() + 1}월 완독 캘린더
+          {now.getFullYear()}년 {now.getMonth() + 1}월 완독 캘린더 ({monthCount}권)
         </h2>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: "3px" }}>

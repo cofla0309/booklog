@@ -254,7 +254,7 @@ main {
 .meter.late > span { background: var(--critical); }
 .meter.done > span { background: var(--good); }
 
-.ring { display: block; }
+.progress-ring { display: block; }
 
 /* ── 버튼 / 폼 ───────────────────────────────────────────── */
 

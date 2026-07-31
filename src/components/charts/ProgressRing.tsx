@@ -11,7 +11,7 @@ export function ProgressRing({ pct, size = 132, stroke = 11, late = false }: Pro
   const clamped = Math.max(0, Math.min(100, pct));
 
   return (
-    <svg className="ring" width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <svg className="progress-ring" width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--seq-100)" strokeWidth={stroke} />
       <circle
         cx={size / 2}
