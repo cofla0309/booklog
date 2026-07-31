@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ColumnChart } from "../components/charts/ColumnChart";
+import { DualColumnChart } from "../components/charts/DualColumnChart";
 import { HorizontalBarChart } from "../components/charts/HorizontalBarChart";
 import { YearHeatmap, HeatLegend } from "../components/charts/YearHeatmap";
 import { listBooks } from "../data/books";
@@ -48,6 +49,10 @@ export function StatsPage() {
   const categories = computeByCategory(books, null);
   const ratings = computeRatingDistribution(books, null);
 
+  const currentYear = new Date().getFullYear();
+  const monthsElapsed = year === currentYear ? new Date().getMonth() + 1 : year < currentYear ? 12 : 0;
+  const avgBooksPerMonth = monthsElapsed > 0 ? Math.round((thisYear.booksDone / monthsElapsed) * 10) / 10 : null;
+
   return (
     <div>
       <div className="page-head">
@@ -87,11 +92,11 @@ export function StatsPage() {
               <div className="tiny dim">기록된 {thisYear.readingDays}일</div>
             </div>
             <div>
-              <div className="label">하루 평균</div>
+              <div className="label">월 평균 완독</div>
               <div className="strong num" style={{ fontSize: "1.25rem" }}>
-                {fmt(thisYear.avgPagesPerReadingDay)}p
+                {avgBooksPerMonth != null ? `${avgBooksPerMonth}권` : "–"}
               </div>
-              <div className="tiny dim">읽은 날 기준</div>
+              <div className="tiny dim">이번 해 기준</div>
             </div>
             <div>
               <div className="label">연속</div>
@@ -186,22 +191,15 @@ export function StatsPage() {
       {/* 최근 50일 */}
       <div className="card">
         <div className="card-head">
-          <h2>최근 50일 페이지</h2>
+          <h2>최근 50일</h2>
         </div>
-        <ColumnChart
+        <DualColumnChart
           data={daily50}
-          value={(d) => d.pages}
+          valueA={(d) => d.pages}
+          valueB={(d) => d.minutes}
           label={(d) => d.label}
-          unit="p"
           labelEvery={10}
           height={170}
-          tooltip={(d) => (
-            <>
-              {d.date}
-              <br />
-              <span className="t-val">{fmt(d.pages)}p</span>
-            </>
-          )}
         />
       </div>
 

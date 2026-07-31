@@ -4,6 +4,7 @@ import { format, subDays } from "date-fns";
 import { ProgressRing } from "../components/charts/ProgressRing";
 import { ColumnChart } from "../components/charts/ColumnChart";
 import { BookTile } from "../components/books/BookTile";
+import { StopwatchWidget } from "../components/books/StopwatchWidget";
 import { AddBookModal } from "../components/books/AddBookModal";
 import { FinishBookModal } from "../components/books/FinishBookModal";
 import { CompletionCalendar } from "../components/stats/CompletionCalendar";
@@ -62,6 +63,7 @@ export function DashboardPage() {
       <div className="page-head">
         <h1>{currentYear}년 독서</h1>
         <span className="spacer" />
+        <StopwatchWidget books={reading} onLogged={handleLogged} />
         <button type="button" className="primary" onClick={() => setAddOpen(true)}>
           + 책 추가
         </button>

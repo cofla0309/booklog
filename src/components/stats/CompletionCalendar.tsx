@@ -30,9 +30,9 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
           {now.getFullYear()}년 {now.getMonth() + 1}월 완독 캘린더
         </h2>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: "3px" }}>
         {WEEKDAY_LABELS.map((label) => (
-          <div key={label} className="tiny dim center">
+          <div key={label} className="tiny dim center" style={{ fontSize: "0.65rem" }}>
             {label}
           </div>
         ))}
@@ -46,26 +46,33 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
             <div
               key={key}
               style={{
-                minHeight: 76,
+                minWidth: 0,
                 border: "1px solid var(--grid)",
-                borderRadius: 6,
-                padding: 4,
+                borderRadius: 4,
+                padding: 2,
                 display: "flex",
                 flexDirection: "column",
-                gap: 4,
+                gap: 2,
               }}
             >
-              <span className="tiny dim">{day.getDate()}</span>
+              <span className="tiny dim" style={{ fontSize: "0.65rem", lineHeight: 1 }}>
+                {day.getDate()}
+              </span>
               {finished.length > 0 && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
+                <div style={{ display: "flex", gap: 2, minWidth: 0 }}>
                   {finished.map((book) =>
                     book.cover_url ? (
-                      <Link key={book.id} to={`/books/${book.id}`} title={book.title}>
+                      <Link
+                        key={book.id}
+                        to={`/books/${book.id}`}
+                        title={book.title}
+                        style={{ flex: "1 1 0", minWidth: 0 }}
+                      >
                         <img
                           src={book.cover_url}
                           alt={book.title}
                           className="cover"
-                          style={{ width: 28 }}
+                          style={{ width: "100%" }}
                         />
                       </Link>
                     ) : (
@@ -74,7 +81,7 @@ export function CompletionCalendar({ books }: CompletionCalendarProps) {
                         to={`/books/${book.id}`}
                         title={book.title}
                         className="cover cover-ph"
-                        style={{ width: 28, fontSize: "0.7rem" }}
+                        style={{ flex: "1 1 0", minWidth: 0, width: "100%", fontSize: "0.6rem" }}
                       >
                         📕
                       </Link>
